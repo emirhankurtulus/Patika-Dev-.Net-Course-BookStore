@@ -13,5 +13,5 @@ public class Book
 
     public int PageCount { get; set; }
 
-    public DateOnly? PublishDate { get; set; }
+    public DateOnly PublishDate { get; set; }
 }

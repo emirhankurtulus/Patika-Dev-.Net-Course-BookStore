@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Project.Commands;
 using Project.DBOperations;
@@ -43,11 +44,22 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult AddBook([FromBody] SaveBookCommand entity)
     {
-        var command = new SaveBookCommandHandler(_context, _mapper);
+        try
+        {
+            var command = new SaveBookCommandHandler(_context, _mapper);
 
-        command.Handle(entity);
+            var validator = new SaveBookValidator();
 
-        return Ok();
+            validator.ValidateAndThrow(entity);
+
+            command.Handle(entity);
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
@@ -65,7 +77,6 @@ public class BookController : Controller
         return Ok();
     }
 
-
     [HttpPut]
     public IActionResult UpdatedBook([FromBody] SaveBookCommand entity)
     {
@@ -74,10 +85,21 @@ public class BookController : Controller
             return BadRequest("Id is null");
         }
 
-        var command = new SaveBookCommandHandler(_context, _mapper);
+        try
+        {
+            var command = new SaveBookCommandHandler(_context, _mapper);
 
-        command.Handle(entity);
+            var validator = new SaveBookValidator();
+           
+            validator.ValidateAndThrow(entity);
 
-        return Ok();
+            command.Handle(entity);
+            
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

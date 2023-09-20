@@ -22,7 +22,7 @@ public class GetBookHandler
             Id = book.Id,
             Title = book.Title,
             PageCount = book.PageCount,
-            PublishDate = book.PublishDate.Value,
+            PublishDate = book.PublishDate,
             Genre = ((GenreEnum)book.GenreId).ToString(),
         };
 
