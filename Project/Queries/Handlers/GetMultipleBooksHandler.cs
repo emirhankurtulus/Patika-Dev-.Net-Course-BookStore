@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Project.DBOperations;
 using Project.DTO;
-using Project.Enums;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Project.Queries.Handlers;
 
@@ -28,7 +28,8 @@ public class GetMultipleBooksHandler
         }
 
         var filteredBooks = _dbContext.Books.Where(x =>
-            (string.IsNullOrEmpty(query.Title) || x.Title == query.Title) &&
+            (query.AuthorId== null || query.AuthorId == x.AuthorId) &&
+            (string.IsNullOrEmpty(query.Title) || x.Title.ToLower() == query.Title.ToLower()) &&
             (query.PublishDate == null || x.PublishDate == query.PublishDate) &&
             (query.PageCount == null || x.PageCount == query.PageCount) &&
             (query.Genre == null || x.GenreId == genreId) &&
@@ -39,6 +40,16 @@ public class GetMultipleBooksHandler
         foreach (var book in filteredBooks)
         {
             var bookVo = _mapper.Map<BookDto>(book);
+
+            var author = _dbContext.Authors.FirstOrDefault(x => x.Id == book.AuthorId);
+
+            if(author is null)
+            {
+                throw new InvalidOperationException($"Author id= {book.AuthorId} did not find");
+            }
+
+            bookVo.AuthorFirstName = author.FirstName;
+            bookVo.AuthorSurname = author.Surname;
 
             bookVo.Genre = GetGenreName(book.GenreId);
 
@@ -58,7 +69,7 @@ public class GetMultipleBooksHandler
         }
         else
         {
-            throw new InvalidOperationException("Genre did not find");
+            throw new InvalidOperationException($"Genre id={id} did not find");
         }
     }
 }

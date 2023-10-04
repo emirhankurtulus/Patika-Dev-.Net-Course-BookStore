@@ -18,18 +18,9 @@ public class GetMultipleGenresHandler
     public IList<GenreDto> Handle(GetMultipleGenresQuery query)
     {
         var filteredGenres = _dbContext.Genres.Where(x=>
-            (string.IsNullOrEmpty(query.Name) || x.Name == query.Name) &&
+            (string.IsNullOrEmpty(query.Name) || x.Name.ToLower() == query.Name.ToLower()) &&
             (query.Active == null || x.Active == query.Active)).ToList();
 
-        var result = new List<GenreDto>();
-
-        foreach (var genre in filteredGenres)
-        {
-            var genreVo = _mapper.Map<GenreDto>(genre);
-
-            result.Add(genreVo);
-        }
-
-        return result;
+        return filteredGenres.Select(genre => _mapper.Map<GenreDto>(genre)).ToList();
     }
 }

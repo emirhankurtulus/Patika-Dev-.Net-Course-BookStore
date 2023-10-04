@@ -11,13 +11,13 @@ public class DeleteBookCommandHandler
         _dbContext = dbContext;
     }
 
-    public void Handle(Guid Id)
+    public void Handle(Guid id)
     {
-        var book = _dbContext.Books.FirstOrDefault(x => x.Id == Id);
+        var book = _dbContext.Books.FirstOrDefault(x => x.Id == id);
 
         if (book is null)
         {
-            throw new InvalidOperationException("Book did not find");
+            throw new InvalidOperationException($"Book id= {id} did not find");
         }
         else
         {

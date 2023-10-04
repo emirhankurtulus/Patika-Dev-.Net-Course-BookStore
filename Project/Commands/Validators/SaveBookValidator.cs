@@ -7,6 +7,7 @@ public class SaveBookValidator : AbstractValidator<SaveBookCommand>
 {
     public SaveBookValidator()
     {
+        RuleFor(command => command.AuthorId).NotEmpty();
         RuleFor(command => command.Genre).NotEmpty();
         RuleFor(command => command.Title).MinimumLength(1).MaximumLength(100).NotEmpty();
         RuleFor(command => command.PageCount).GreaterThan(0).NotEmpty();

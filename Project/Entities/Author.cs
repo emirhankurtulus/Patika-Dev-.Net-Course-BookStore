@@ -2,12 +2,14 @@
 
 namespace Project.Entities;
 
-public class Genre : BaseEntity
+public class Author
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public string FirstName { get; set; }
 
-    public bool Active { get; set; } = true;
+    public string Surname { get; set; }
+
+    public DateOnly BirthDate { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Project.Commands.Books;
 using Project.DBOperations;
 using Project.Entities;
 
@@ -24,7 +23,7 @@ public class SaveGenreCommandHandler
 
             if (genre is null)
             {
-                throw new InvalidOperationException("Genre did not find");
+                throw new InvalidOperationException($"Genre id= {command.Id} did not find");
             }
 
             if (genre.Name != command.Name)

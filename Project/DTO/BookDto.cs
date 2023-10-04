@@ -4,6 +4,10 @@ public class BookDto
 {
     public Guid? Id { get; set; }
 
+    public string AuthorFirstName { get; set; }
+
+    public string AuthorSurname { get; set; }
+
     public string Genre { get; set; }
 
     public string Title { get; set; }

@@ -18,8 +18,11 @@ public class MappingProfile : Profile
 
     public MappingProfile()
     {
-        CreateMap<SaveBookCommand, Book>();
+        CreateMap<Author, AuthorDto>();
+        CreateMap<SaveAuthorCommand, Author>();
+
         CreateMap<Book, BookDto>();
+        CreateMap<SaveBookCommand, Book>();
 
         CreateMap<Genre, GenreDto>();
         CreateMap<SaveGenreCommand, Genre>();

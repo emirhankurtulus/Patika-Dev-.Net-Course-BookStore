@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Project.Commands;
 using Project.Commands.Books;
 using Project.Commands.Handlers;
 using Project.Commands.Validators;
@@ -25,7 +24,7 @@ public class BookController : Controller
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetBookByID(Guid id)
+    public IActionResult GetBookById(Guid id)
     {
         var query = new GetBookHandler(_context, _mapper);
 
@@ -47,15 +46,15 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult AddBook([FromBody] SaveBookCommand entity)
     {
-            var command = new SaveBookCommandHandler(_context, _mapper);
+        var command = new SaveBookCommandHandler(_context, _mapper);
 
-            var validator = new SaveBookValidator();
+        var validator = new SaveBookValidator();
 
-            validator.ValidateAndThrow(entity);
+        validator.ValidateAndThrow(entity);
 
-            command.Handle(entity);
+        command.Handle(entity);
 
-            return Ok();
+        return Ok();
     }
 
     [HttpDelete("{id}")]
@@ -81,14 +80,14 @@ public class BookController : Controller
             return BadRequest("Id is null");
         }
 
-            var command = new SaveBookCommandHandler(_context, _mapper);
+        var command = new SaveBookCommandHandler(_context, _mapper);
 
-            var validator = new SaveBookValidator();
-           
-            validator.ValidateAndThrow(entity);
+        var validator = new SaveBookValidator();
 
-            command.Handle(entity);
-            
-            return Ok();
+        validator.ValidateAndThrow(entity);
+
+        command.Handle(entity);
+
+        return Ok();
     }
 }

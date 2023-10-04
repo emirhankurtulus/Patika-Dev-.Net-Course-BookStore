@@ -18,7 +18,7 @@ public class DeleteGenreCommandHandler
 
         if (genre is null)
         {
-            throw new InvalidOperationException("Book did not find");
+            throw new InvalidOperationException($"Genre id= {id} did not find");
         }
         else
         {
@@ -26,7 +26,7 @@ public class DeleteGenreCommandHandler
 
             if (books is null || books.Length > 0)
             {
-                throw new InvalidOperationException("This Genre is used in any book(s)");
+                throw new InvalidOperationException($"This Genre id={id} is used in any book(s)");
             }
 
             _dbContext.Genres.Remove(genre);
