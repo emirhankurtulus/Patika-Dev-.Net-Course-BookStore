@@ -1,5 +1,9 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Project.DBOperations;
+using Project.Mapping;
+using Project.Middlewares;
+using Project.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BookDBContext>(options => options.UseInMemoryDatabase(databaseName: "projectdb"));
+builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase(databaseName: "projectdb"));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
 var app = builder.Build();
 
@@ -27,6 +32,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.UseCustomExceptionMiddleware();
+
 app.MapControllers();
 
 app.Run();

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+using Project.Commands.Books;
 
-namespace Project.Commands;
+namespace Project.Commands.Validators;
 
 public class SaveBookValidator : AbstractValidator<SaveBookCommand>
 {

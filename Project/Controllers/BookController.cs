@@ -2,6 +2,9 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Project.Commands;
+using Project.Commands.Books;
+using Project.Commands.Handlers;
+using Project.Commands.Validators;
 using Project.DBOperations;
 using Project.Queries;
 using Project.Queries.Handlers;
@@ -12,10 +15,10 @@ namespace Project.Controllers;
 [Route("[controller]s")]
 public class BookController : Controller
 {
-    private readonly BookDBContext _context;
+    private readonly BookStoreDbContext _context;
     private readonly IMapper _mapper;
 
-    public BookController(BookDBContext context, IMapper mapper)
+    public BookController(BookStoreDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -24,7 +27,7 @@ public class BookController : Controller
     [HttpGet("{id}")]
     public IActionResult GetBookByID(Guid id)
     {
-        var query = new GetBookHandler(_context);
+        var query = new GetBookHandler(_context, _mapper);
 
         var result = query.Handle(id);
 
@@ -44,8 +47,6 @@ public class BookController : Controller
     [HttpPost]
     public IActionResult AddBook([FromBody] SaveBookCommand entity)
     {
-        try
-        {
             var command = new SaveBookCommandHandler(_context, _mapper);
 
             var validator = new SaveBookValidator();
@@ -55,11 +56,6 @@ public class BookController : Controller
             command.Handle(entity);
 
             return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
     }
 
     [HttpDelete("{id}")]
@@ -85,8 +81,6 @@ public class BookController : Controller
             return BadRequest("Id is null");
         }
 
-        try
-        {
             var command = new SaveBookCommandHandler(_context, _mapper);
 
             var validator = new SaveBookValidator();
@@ -96,10 +90,5 @@ public class BookController : Controller
             command.Handle(entity);
             
             return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
     }
 }

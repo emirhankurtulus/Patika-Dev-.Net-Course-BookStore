@@ -2,26 +2,25 @@
 using Project.DBOperations;
 using Project.DTO;
 using Project.Entities;
-using Project.Enums;
 
 namespace Project.Queries.Handlers;
 
-public class GetBookHandler
+public class GetGenreHandler
 {
     private readonly BookStoreDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetBookHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public GetGenreHandler(BookStoreDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
     }
 
-    public BookDto Handle(Guid id)
+    public GenreDto Handle(Guid id)
     {
-        var book = _dbContext.Books.FirstOrDefault(x => x.Id == id);
+        var genre = _dbContext.Genres.FirstOrDefault(g => g.Id == id);
 
-        var result = _mapper.Map<BookDto>(book);
+        var result = _mapper.Map<GenreDto>(genre);
 
         return result;
     }

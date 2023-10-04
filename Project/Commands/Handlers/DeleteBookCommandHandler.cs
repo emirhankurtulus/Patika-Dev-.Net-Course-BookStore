@@ -1,12 +1,12 @@
 ﻿using Project.DBOperations;
 
-namespace Project.Commands;
+namespace Project.Commands.Handlers;
 
 public class DeleteBookCommandHandler
 {
-    private readonly BookDBContext _dbContext;
+    private readonly BookStoreDbContext _dbContext;
 
-    public DeleteBookCommandHandler(BookDBContext dbContext)
+    public DeleteBookCommandHandler(BookStoreDbContext dbContext)
     {
         _dbContext = dbContext;
     }

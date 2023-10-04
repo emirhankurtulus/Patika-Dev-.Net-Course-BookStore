@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Project;
+namespace Project.Entities;
 
-public class Book
+public class Book : BaseEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
 
-    public int GenreId { get; set; }
+    public Guid GenreId { get; set; }
 
     public string Title { get; set; }
 

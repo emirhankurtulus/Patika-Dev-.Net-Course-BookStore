@@ -1,34 +1,27 @@
 ﻿using AutoMapper;
 using Project.Commands;
+using Project.Commands.Books;
+using Project.DBOperations;
 using Project.DTO;
-using Project.Enums;
+using Project.Entities;
 
 namespace Project.Mapping;
 
 public class MappingProfile : Profile
 {
-    public MappingProfile()
-    {
-        CreateMap<SaveBookCommand, Book>().ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => GetGenreIdFromName(src.Genre)));
+    private readonly BookStoreDbContext _dbContext;
 
-        CreateMap<Book, BookDto>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
+    public MappingProfile(BookStoreDbContext dbContext)
+    {
+        _dbContext = dbContext;
     }
 
-
-    private int GetGenreIdFromName(string genreName)
+    public MappingProfile()
     {
-        GenreEnum genreEnumValue;
-        int? genreId = null;
+        CreateMap<SaveBookCommand, Book>();
+        CreateMap<Book, BookDto>();
 
-        if (Enum.TryParse(genreName, out genreEnumValue))
-        {
-            genreId = (int)genreEnumValue;
-
-            return genreId.Value;
-        }
-        else
-        {
-            throw new InvalidOperationException("Genre did not find");
-        }
+        CreateMap<Genre, GenreDto>();
+        CreateMap<SaveGenreCommand, Genre>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Project.Commands;
+﻿namespace Project.Commands.Books;
 
 public class SaveBookCommand
 {

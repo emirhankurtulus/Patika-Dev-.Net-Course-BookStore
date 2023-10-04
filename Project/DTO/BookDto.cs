@@ -11,4 +11,6 @@ public class BookDto
     public int PageCount { get; set; }
 
     public DateOnly PublishDate { get; set; }
+
+    public bool Active { get; set; }
 }
