@@ -32,6 +32,7 @@ public class GetBookHandler
         result.Genre = GetGenreName(book.GenreId);
         result.AuthorFirstName = author.FirstName;
         result.AuthorSurname = author.Surname;
+
         return result;
     }
 
