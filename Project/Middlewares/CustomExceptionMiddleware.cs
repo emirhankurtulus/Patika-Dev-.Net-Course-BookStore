@@ -37,7 +37,6 @@ public class CustomExceptionMiddleware
 
             await HandleException(context, ex, watch);
         }
-
     }
 
     private Task HandleException(HttpContext context, Exception ex, Stopwatch watch)
