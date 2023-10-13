@@ -6,10 +6,10 @@ namespace Project.Commands.Handlers;
 
 public class SaveGenreCommandHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public SaveGenreCommandHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public SaveGenreCommandHandler(IDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
@@ -36,10 +36,7 @@ public class SaveGenreCommandHandler
                 }
             }
 
-            if (command.Active.Value)
-            {
-                genre.Active = command.Active.Value;
-            }
+                genre.Active = command.Active;
 
             genre.Name = command.Name;
 

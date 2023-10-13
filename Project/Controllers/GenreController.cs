@@ -2,7 +2,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Project.Commands;
-using Project.Commands.Books;
 using Project.Commands.Handlers;
 using Project.Commands.Validators;
 using Project.DBOperations;
@@ -15,10 +14,10 @@ namespace Project.Controllers;
 [Route("[controller]s")]
 public class GenreController : Controller
 {
-    private readonly BookStoreDbContext _context;
+    private readonly IDbContext _context;
     private readonly IMapper _mapper;
 
-    public GenreController(BookStoreDbContext context, IMapper mapper)
+    public GenreController(IDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

@@ -7,10 +7,10 @@ namespace Project.Commands.Handlers;
 
 public class SaveBookCommandHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public SaveBookCommandHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public SaveBookCommandHandler(IDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
@@ -38,6 +38,7 @@ public class SaveBookCommandHandler
             book.GenreId = GetGenreIdFromName(command.Genre);
             book.PageCount = command.PageCount;
             book.Title = command.Title;
+            book.Active = command.Active;
 
             _dbContext.Books.Update(book);
 

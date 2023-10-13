@@ -6,10 +6,10 @@ namespace Project.Queries.Handlers;
 
 public class GetMultipleGenresHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetMultipleGenresHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public GetMultipleGenresHandler(IDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;

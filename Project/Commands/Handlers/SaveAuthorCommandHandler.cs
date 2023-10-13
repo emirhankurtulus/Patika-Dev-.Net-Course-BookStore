@@ -6,10 +6,10 @@ namespace Project.Commands.Handlers;
 
 public class SaveAuthorCommandHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public SaveAuthorCommandHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public SaveAuthorCommandHandler(IDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
@@ -29,6 +29,7 @@ public class SaveAuthorCommandHandler
             author.BirthDate = command.BirthDate;
             author.FirstName = command.FirstName;
             author.Surname = command.Surname;
+            author.Active = command.Active;
 
             _dbContext.Authors.Update(author);
 

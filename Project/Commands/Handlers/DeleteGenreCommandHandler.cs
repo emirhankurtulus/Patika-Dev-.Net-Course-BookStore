@@ -4,10 +4,10 @@ namespace Project.Commands.Handlers;
 
 public class DeleteGenreCommandHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
 
 
-    public DeleteGenreCommandHandler(BookStoreDbContext dbContext)
+    public DeleteGenreCommandHandler(IDbContext dbContext)
     {
         _dbContext = dbContext;
     }

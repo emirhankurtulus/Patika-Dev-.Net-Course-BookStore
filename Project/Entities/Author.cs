@@ -2,7 +2,7 @@
 
 namespace Project.Entities;
 
-public class Author
+public class Author : BaseEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }

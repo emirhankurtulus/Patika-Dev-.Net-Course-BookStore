@@ -9,13 +9,6 @@ namespace Project.Mapping;
 
 public class MappingProfile : Profile
 {
-    private readonly BookStoreDbContext _dbContext;
-
-    public MappingProfile(BookStoreDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public MappingProfile()
     {
         CreateMap<Author, AuthorDto>();

@@ -14,10 +14,10 @@ namespace Project.Controllers;
 [Route("[controller]s")]
 public class BookController : Controller
 {
-    private readonly BookStoreDbContext _context;
+    private readonly IDbContext _context;
     private readonly IMapper _mapper;
 
-    public BookController(BookStoreDbContext context, IMapper mapper)
+    public BookController(IDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

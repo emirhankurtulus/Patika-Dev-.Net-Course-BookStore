@@ -7,10 +7,10 @@ namespace Project.Queries.Handlers;
 
 public class GetBookHandler
 {
-    private readonly BookStoreDbContext _dbContext;
+    private readonly IDbContext _dbContext;
     private readonly IMapper _mapper;
 
-    public GetBookHandler(BookStoreDbContext dbContext, IMapper mapper)
+    public GetBookHandler(IDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
