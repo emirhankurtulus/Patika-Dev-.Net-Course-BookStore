@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Project.Commands;
 using Project.Commands.Books;
-using Project.DBOperations;
 using Project.DTO;
 using Project.Entities;
 
@@ -19,5 +18,8 @@ public class MappingProfile : Profile
 
         CreateMap<Genre, GenreDto>();
         CreateMap<SaveGenreCommand, Genre>();
+
+        CreateMap<User, UserDto>();
+        CreateMap<SaveUserCommand, User>();
     }
 }

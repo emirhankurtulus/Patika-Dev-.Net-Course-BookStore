@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Commands;
 using Project.Commands.Handlers;
@@ -10,6 +11,7 @@ using Project.Queries.Handlers;
 
 namespace Project.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]s")]
 public class AuthorController : Controller

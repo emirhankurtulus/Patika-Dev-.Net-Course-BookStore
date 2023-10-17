@@ -11,5 +11,7 @@ public interface IDbContext
 
     DbSet<Genre> Genres { get; set; }
 
+    DbSet<User> Users { get; set; }
+
     int SaveChanges();
 }
