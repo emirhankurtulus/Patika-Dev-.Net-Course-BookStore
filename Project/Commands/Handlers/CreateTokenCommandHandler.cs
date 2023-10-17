@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Project.DBOperations;
+﻿using Project.DBOperations;
 using Project.DTO;
 using Project.Services;
 
@@ -14,8 +13,7 @@ public class CreateTokenCommandHandler
     public CreateTokenCommandHandler(
         IDbContext dbContext, 
         IPasswordHelper passwordHelper,
-        IAuthenticationService authenticationService
-        )
+        IAuthenticationService authenticationService)
     {
         _passwordHelper = passwordHelper;
         _dbContext = dbContext;

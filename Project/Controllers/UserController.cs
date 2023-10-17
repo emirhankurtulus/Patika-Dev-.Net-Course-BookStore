@@ -2,6 +2,8 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using Project.Commands;
 using Project.Commands.Handlers;
 using Project.Commands.Validators;
@@ -85,10 +87,32 @@ public class UserController : Controller
 
         var token = HttpContext.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", string.Empty);
 
+        if (token is null)
+        {
+            return Unauthorized();
+        }
+
         var command = new SaveUserCommandHandler(_context, _mapper, _passwordHelper, _authenticationService);
 
         command.Handle(entity, token);
 
         return Ok();
+    }
+
+    [HttpGet("refreshToken")]
+    public ActionResult<TokenDto> RefreshToken()
+    {
+        var command = new CreateRefreshTokenHandler(_context, _authenticationService);
+
+        var token = HttpContext.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", string.Empty);
+
+        if (token is null)
+        {
+            return Unauthorized();
+        }
+
+        var resultToken = command.Handle(token);
+
+        return resultToken;
     }
 }

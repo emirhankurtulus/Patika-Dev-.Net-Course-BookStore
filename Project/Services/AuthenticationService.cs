@@ -1,5 +1,4 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
 using Project.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -27,7 +26,7 @@ public class AuthenticationService : IAuthenticationService
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        token.Expiration = DateTime.UtcNow.AddMinutes(15);
+        token.Expiration = DateTime.Now.AddMinutes(15);
 
         var securityToken = new JwtSecurityToken(
             issuer: _configuration["Token:Issuer"],
