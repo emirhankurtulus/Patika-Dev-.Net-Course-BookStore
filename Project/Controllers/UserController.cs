@@ -2,8 +2,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using Project.Commands;
 using Project.Commands.Handlers;
 using Project.Commands.Validators;
@@ -15,7 +13,7 @@ using Project.Services;
 namespace Project.Controllers;
 
 [ApiController]
-[Route("[controller]s")]
+[Route("[controller]")]
 public class UserController : Controller
 {
     private readonly IDbContext _context;
@@ -73,8 +71,9 @@ public class UserController : Controller
         return token;
     }
 
+    [Authorize]
     [HttpPut]
-    public IActionResult UpdatedAuthor([FromBody] SaveUserCommand entity)
+    public IActionResult UpdateUser([FromBody] SaveUserCommand entity)
     {
         if (entity.Id is null)
         {
@@ -99,6 +98,7 @@ public class UserController : Controller
         return Ok();
     }
 
+    [Authorize]
     [HttpGet("refreshToken")]
     public ActionResult<TokenDto> RefreshToken()
     {
@@ -114,5 +114,26 @@ public class UserController : Controller
         var resultToken = command.Handle(token);
 
         return resultToken;
+    }
+
+    [HttpPost("changePassword")]
+    public IActionResult ChangePassword([FromBody] ChangeUserPasswordCommand changeUserPasswordCommand)
+    {
+        var validator = new ChangeUserPasswordValidator();
+
+        validator.ValidateAndThrow(changeUserPasswordCommand);
+
+        var command = new ChangeUserPasswordCommandHandler(_context, _authenticationService, _passwordHelper );
+
+        var token = HttpContext.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", string.Empty);
+
+        if (token is null)
+        {
+            return Unauthorized();
+        }
+
+        command.Handle(changeUserPasswordCommand, token);
+
+        return Ok();
     }
 }

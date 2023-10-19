@@ -38,5 +38,4 @@ public class CreateRefreshTokenHandler
 
         return newToken;
     }
-
 }
