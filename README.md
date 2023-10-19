@@ -9,7 +9,7 @@ The bookstore API is a system used to add book categories, authors, and brief de
 
 
 ```http
-  POST /register
+  POST /user/register
 ```
 
 | Parameter | Type     | Description                |
